@@ -11,11 +11,11 @@ import re
 
 def main():
 
-    card_quantity = int(input("Input card quantity then list of cards").strip())
+    # Get inputs
+    card_quantity = int(input("Input card quantity then list of cards: ").strip())
     
     for _ in range(card_quantity):
         cc_number = input().strip()
-        print("Assessing cc number: ", cc_number)
         if is_valid(cc_number):
             print("Valid")
         else:
@@ -26,19 +26,15 @@ def is_valid(cc_number):
     
     if not re.match(r'^[456]', cc_number):
         # Checks if cc_number doesn't start with 4,5, or 6
-        print("Doesn't start with 4, 5, or 6")
         return False
     elif not re.match(r'(?=(?:\d{16})|(?:\d{4}-\d{4}-\d{4}-\d{4}))', cc_number):
         # Checks if number doesn't have exactly 16 digits, or groupings of 4 with single hyphen separators
         # Also checks for bad separators or non-numerical characters
-        print("not 16 digits, 4 groups of 4, or has bad characters")
         return False
     
     # Check if number has any digits repeated 4 times
     cc_number = cc_number.replace('-', '')
-    print("Checking cleaned number for 4x repeat characters: ", cc_number)
     if re.search(r'(\d)\1{3}', cc_number):
-        print("Has repeats x4")
         return False
 
     return True
