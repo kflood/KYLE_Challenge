@@ -43,7 +43,7 @@ resource "aws_cloudfront_distribution" "challenge_distribution" {
 
   viewer_certificate {
     acm_certificate_arn = "arn:aws:acm:us-east-1:771460917126:certificate/83d815f4-5603-4858-a5da-85193f6ab3b4"
-    ssl_support_method = "sni-only"
+    ssl_support_method  = "sni-only"
   }
 }
 

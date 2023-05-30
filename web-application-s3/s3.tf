@@ -24,8 +24,8 @@ resource "aws_s3_bucket_policy" "challenge_bucket_policy" {
 }
 
 resource "aws_s3_bucket_acl" "challenge_bucket_acl" {
-  bucket = aws_s3_bucket.challenge_bucket.id
-  acl    = "private"
+  bucket     = aws_s3_bucket.challenge_bucket.id
+  acl        = "private"
   depends_on = [aws_s3_bucket_ownership_controls.challenge_bucket_acl_ownership]
 }
 
