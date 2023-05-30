@@ -1,0 +1,29 @@
+name: "Site Files Sync Pipeline"
+ 
+on:
+ push:
+   branches:
+   - main
+   paths:
+   - site_files/**
+ 
+env:
+ # Credentials for deployment to AWS
+ AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+ AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+ AWS_DEFAULT_REGION: 'us-east-1'
+ 
+jobs:
+ s3-sync:
+   name: "Site Files Sync"
+   runs-on: ubuntu-latest
+   defaults:
+     run:
+       shell: bash
+       working-directory: ./web-application-s3
+ 
+   steps:
+     - name: Sync s3 site files
+       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+       run: |
+         aws s3 sync ../site_files s3://challenge.kyleflood.com
