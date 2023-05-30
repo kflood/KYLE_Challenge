@@ -90,3 +90,7 @@ jobs:
      - name: Terraform Apply
        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
        run: terraform apply -auto-approve -input=false
+
+     - name: Sync s3 site files
+       run: |
+         aws s3 sync ../site_files s3://challenge.kyleflood.com
