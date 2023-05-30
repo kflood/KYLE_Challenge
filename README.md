@@ -6,6 +6,8 @@ Architecture: This web application is deployed via an s3 bucket, fronted by a Cl
 
 By architecting this way instead of a standard ec2 webserver, we have stability and scalability baked in. There could also be significant cost savings depending on site traffic, compared to always-on ec2 hours.
 
+The site is deployed via a Github Actions pipeline. Terraform changes are validated on pull request, with the plan output added to a pull-request comment for review. The terraform apply action is triggered on a merge into the 'main' branch. Additionally, there is an action for the 'site-files' directory sync with the s3 bucket, which is triggered after the terraform apply on merge when the terraform is changed, or on merge when it detects changes to the 'site-files' directory.
+
 ## Python Credit Card Problem
 
 This application takes credit card number inputs and validates them. I employed an "is_valid" function to run three validation checks: 
