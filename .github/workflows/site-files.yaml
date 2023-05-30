@@ -5,7 +5,7 @@ on:
    branches:
    - main
    paths:
-   - site_files/**
+   - site-files/**
  
 env:
  # Credentials for deployment to AWS
@@ -23,7 +23,10 @@ jobs:
        working-directory: ./web-application-s3
  
    steps:
+     - name: Checkout the repository to the runner
+       uses: actions/checkout@v2
+
      - name: Sync s3 site files
        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
        run: |
-         aws s3 sync ../site_files s3://challenge.kyleflood.com
+         aws s3 sync ../site-files s3://challenge.kyleflood.com
